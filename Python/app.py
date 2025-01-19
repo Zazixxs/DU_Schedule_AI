@@ -24,18 +24,21 @@ def getSchedule():
             'plats': tr.find_all('td', class_='column0')[-1].text.strip(),
         }
         events.append(event_data)
-
-
-        print()
-
-
+    return events
 
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
+    events = getSchedule()  # Hämta listan med events
     return render_template('home.html')
+
+
+@app.route('/schedule')
+def schedule():
+    events = getSchedule()  # Hämta listan med events
+    return render_template('schedule.html', events=events)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000, debug=True)

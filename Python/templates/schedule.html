@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Schedule</title>
+    <!-- Länk till CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+</head>
+<body>
+    <h1>Event Schedule</h1>
+
+    <!-- Kontrollera om eventlistan finns -->
+    {% if events %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Tid</th>
+                    <th>Koder</th>
+                    <th>Namn</th>
+                    <th>Typ</th>
+                    <th>Ledare</th>
+                    <th>Plats</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iterera över events -->
+                {% for event in events %}
+                <tr>
+                    <td>{{ event.tid }}</td>
+                    <td>{{ event.koder }}</td>
+                    <td>{{ event.namn }}</td>
+                    <td>{{ event.typ }}</td>
+                    <td>{{ event.ledare }}</td>
+                    <td>{{ event.plats }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Inga events hittades.</p>
+    {% endif %}
+</body>
+</html>
