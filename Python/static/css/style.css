@@ -100,3 +100,66 @@ button a {
     margin: 0;
     font-size: 0.9rem; /* Något mindre textstorlek för detaljer */
 }
+
+
+.container-content {
+    display: flex; /* Arrange items in a row */
+    gap: 20px; /* Add space between columns */
+    margin: 20px auto; /* Center the content */
+    max-width: 1200px; /* Limit the overall width */
+}
+
+.container-classes, .container-ollama {
+    flex: 1; /* Each column takes equal width */
+    background-color: var(--gray-dark); /* Consistent background color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+.container-ollama h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--gray-light);
+    padding-bottom: 10px;
+}
+
+.container-ollama p {
+    color: var(--primary-color);
+    font-size: 20px;
+    padding-top: 1.5rem;
+}
+
+textarea {
+    border: 1px solid var(--gray-light); /* Border for better visibility */
+    border-radius: 5px;
+    background-color: var(--gray-medium);
+    color: var(--primary-color);
+    padding: 10px;
+    resize: none;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+#response-box {
+    margin-top: 20px;
+    padding: 30px;
+    background-color: var(--gray-medium); /* Match design theme */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+#response-box h3 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+#response {
+    color: var(--primary-color); /* White text for visibility */
+}

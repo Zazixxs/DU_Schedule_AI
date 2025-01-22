@@ -11,28 +11,67 @@
     <div class="continer-nav">  
         <button id="schduleButton"><a href="{{ url_for('schedule') }}">Schedule</a></button>
         <button id="stockButton"><a href="https://www.avanza.se/borsen-idag.html" target="_blank">Stockmarket</a></button>
-        <button id="newsButton"><a href="https://https://www.theguardian.com/europe" target="_blank">News</a></button>
+        <button id="newsButton"><a href="https://www.theguardian.com/europe" target="_blank">News</a></button>
         <button id="youtubeButton"><a href="https://www.youtube.com/" target="_blank">Youtube</a></button>
     </div>
-    <div class="container-classes">
-        <h2>Classes for Today</h2>
-        {% if classes %}
-            <ul>
-                {% for cls in classes %}
-                    <li>
-                        <strong>Time:</strong> {{ cls['Tid'] }}<br>
-                        <strong>Course Occasion:</strong> {{ cls['Kurstillfälle'] }}<br>
-                        <strong>Group:</strong> {{ cls['Grupp'] }}<br>
-                        <strong>Moment:</strong> {{ cls['Moment'] }}<br>
-                        <strong>Teacher:</strong> {{ cls['Lärare'] }}<br>
-                        <strong>Location:</strong> {{ cls['Lokal/Plats'] }}<br>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No classes scheduled for today.</p>
-        {% endif %}
-    </div>
-    
+        <div class="container-content">
+            <div class="container-classes">
+                <h2>Classes for Today</h2>
+                {% if classes %}
+                    <ul>
+                        {% for cls in classes %}
+                            <li>
+                                <strong>Time:</strong> {{ cls['Tid'] }}<br>
+                                <strong>Course Occasion:</strong> {{ cls['Kurstillfälle'] }}<br>
+                                <strong>Group:</strong> {{ cls['Grupp'] }}<br>
+                                <strong>Moment:</strong> {{ cls['Moment'] }}<br>
+                                <strong>Teacher:</strong> {{ cls['Lärare'] }}<br>
+                                <strong>Location:</strong> {{ cls['Lokal/Plats'] }}<br>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No classes scheduled for today.</p>
+                {% endif %}
+            </div>
+            <div class="container-ollama">
+                <form id="ollamaForm">
+                    <h1>Ask the Ollama Model</h1>
+                    <textarea id="prompt" name="prompt" placeholder="Ask something..." rows="4" cols="50"></textarea>
+                    <br>
+                    <button type="button" onclick="sendPrompt()">Send</button>
+                </form>
+                <p>Answer</p>
+                <div id="response-box">
+                    <div id="response"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            async function sendPrompt() {
+            const prompt = document.getElementById('prompt').value;
+            const responseDiv = document.getElementById('response');
+            const promptField = document.getElementById('prompt');
+            responseDiv.textContent = "Loading...";
+            try {
+                const response = await fetch('/ask_ollama', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    responseDiv.textContent = result.response || "No response";
+                } else {
+                    responseDiv.textContent = `Error: ${result.error || "Unknown error"}`;
+                }
+            } catch (error) {
+                responseDiv.textContent = "Error connecting to the server.";
+            } finally {
+                promptField.value = ""; // Clear the text area after sending
+            }
+}
+
+        </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask , render_template
+from flask import Flask, render_template, request, jsonify
 from bs4 import BeautifulSoup
 import requests
 import datetime
@@ -111,6 +111,31 @@ def stockmarket():
     if response.status_code != 200:
         return "Failed to fetch stock data"
 
+
+
+def connect_to_ollama(prompt):
+    """
+    Connects to the Ollama model API and sends a prompt.
+    """
+    api_url = "http://127.0.0.1:11434/api/generate"
+    headers = {
+        "Content-Type": "application/json"
+    }
+    payload = {
+    "model": "deepseek-r1:7b",  # Replace with your specific model
+    "prompt": prompt,
+    "stream": False  # Include the stream parameter to disable streaming
+    }
+
+    try:
+        response = requests.post(api_url, json=payload, headers=headers)
+        response.raise_for_status()  # Raise an exception for HTTP error codes
+        return response.json().get("response", "No response field in API response")
+    except requests.RequestException as e:
+        return f"Failed to connect to Ollama model: {str(e)}"
+
+
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -119,6 +144,7 @@ def home():
     weather = get_weather()
     stock = stockmarket()
     classes_today = get_classes()  # Hämta dagens klasser
+
     return render_template('home.html', stock=stock, weather=weather, classes=classes_today)
 
 
@@ -127,7 +153,31 @@ def schedule():
     events = getSchedule()  # Hämta listan med events
     return render_template('schedule.html', events=events)
 
+
+@app.route('/ask_ollama', methods=['GET', 'POST'])
+def ask_ollama():
+    if request.method == 'POST':
+        data = request.json
+        if not data or "prompt" not in data:
+            return jsonify({"error": "Missing 'prompt' in request"}), 400
+        
+        prompt = data["prompt"]
+        response = connect_to_ollama(prompt)
+        return jsonify({"response": response}), 200
+    
+    return render_template('ask_ollama.html')
+
+
+
+
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000, debug=True)
+
+
+
+
+
 
 
