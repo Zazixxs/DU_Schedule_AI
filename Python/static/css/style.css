@@ -1,28 +1,102 @@
+:root {
+    --primary-color: #ffffff; /* Vit färg för text */
+    --gray-light: #444444; /* Ljus grå för bakgrund eller linjer */
+    --gray-medium: #2a2a2a; /* Medium grå för sektioner */
+    --gray-dark: #1e1e1e; /* Mörk grå för huvudsakliga bakgrunder */
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    background-color: var(--gray-dark); /* Använd mörk grå som standardbakgrund */
     margin: 0;
     padding: 20px;
+    color: var(--primary-color); /* Vit text för generellt innehåll */
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: var(--primary-color); /* Vit text för rubriker */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
+    background-color: var(--gray-medium); /* Medium grå för tabellens bakgrund */
 }
 
 table th, table td {
-    border: 1px solid #ddd;
+    border: 1px solid var(--gray-light); /* Ljus grå kant */
     padding: 8px;
     text-align: left;
+    color: var(--primary-color); /* Vit text för celler */
 }
 
 table th {
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: var(--gray-light); /* Ljus grå för tabellhuvuden */
+    color: var(--primary-color); /* Vit text för rubriker */
+}
+
+.continer-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+button {
+    background-color: var(--gray-light); /* Ljus grå för knappar */
+    color: var(--primary-color); /* Vit text */
+    border: none;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+button a {
+    color: var(--primary-color); /* Vit text för länkar */
+    text-decoration: none;
+}
+
+.container-classes {
+    background-color: var(--gray-dark); /* Mörk grå för kontrast */
+    border-radius: 8px; /* Rundade hörn */
+    padding: 20px; /* Utrymme runt innehållet */
+    margin: 20px auto; /* Centrera behållaren */
+    max-width: 800px; /* Begränsa bredden */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtil skugga */
+}
+
+.container-classes h2 {
+    color: var(--primary-color); /* Vit text för rubriker */
+    margin-bottom: 15px; /* Lite mellanrum under rubriken */
+    text-align: center; /* Centrera rubriken */
+    border-bottom: 2px solid var(--gray-light); /* Understrykning */
+    padding-bottom: 10px;
+}
+
+.container-classes ul {
+    list-style: none; /* Ta bort punktlista */
+    padding: 0; /* Ingen inre marginal */
+    margin: 0; /* Ingen yttre marginal */
+}
+
+.container-classes li {
+    background-color: var(--gray-medium); /* Medium grå för lista */
+    border: 1px solid var(--gray-light); /* Ljus grå kant */
+    padding: 15px; /* Utrymme inuti */
+    margin-bottom: 10px; /* Mellanrum mellan listor */
+    border-radius: 5px; /* Rundade hörn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Skugga för djup */
+}
+
+.container-classes li strong {
+    color: var(--primary-color); /* Vit text för titlar */
+    display: block; /* Varje titel på egen rad */
+    margin-bottom: 5px; /* Mellanrum under titeln */
+}
+
+.container-classes p {
+    color: var(--primary-color); /* Vit text för detaljer */
+    margin: 0;
+    font-size: 0.9rem; /* Något mindre textstorlek för detaljer */
 }
