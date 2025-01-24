@@ -122,7 +122,7 @@ def connect_to_ollama(prompt):
         "Content-Type": "application/json"
     }
     payload = {
-    "model": "deepseek-r1:7b",  # Replace with your specific model
+    "model": "llama3:8b",  # Replace with your specific model
     "prompt": prompt,
     "stream": False  # Include the stream parameter to disable streaming
     }
@@ -135,17 +135,49 @@ def connect_to_ollama(prompt):
         return f"Failed to connect to Ollama model: {str(e)}"
 
 
+def ai_recommendations():
+    scheduleToday = get_classes()
+    if not scheduleToday:
+        scheduleToday = "No classes today"
+    elif isinstance(scheduleToday, list):
+        scheduleToday = "\n".join(
+            f"{event['Tid']} - {event['Programtillfälle']}, {event['Kurskod']} ({event['Lärare']}), {event['Lokal/Plats']}"
+            for event in scheduleToday
+        )
+
+    api_url = "http://127.0.0.1:11434/api/generate"
+    headers = {"Content-Type": "application/json"}
+    prompt = f"{scheduleToday}, What should I do today?(If the prompt does not contain any classes say no classes today)"
+    payload = {
+        "model": "llama3:8b",
+        "prompt": prompt,
+        "stream": False
+    }
+
+    print("Payload:", payload, flush=True)  # Debugging
+    try:
+        response = requests.post(api_url, json=payload, headers=headers, timeout=30)
+        response.raise_for_status()
+        json_response = response.json()
+        print("API Response:", json_response, flush=True)  # Debugging
+        return json_response.get("response", "No response field in API response")
+    except requests.RequestException as e:
+        print(f"API Error: {e}", flush=True)  # Debugging
+        return f"Failed to connect to Ollama model: {str(e)}"
+
+
+
+
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     events = getSchedule()  # Hämta listan med events
-    weather = get_weather()
     stock = stockmarket()
     classes_today = get_classes()  # Hämta dagens klasser
+    return render_template('home.html', stock=stock, classes=classes_today)
 
-    return render_template('home.html', stock=stock, weather=weather, classes=classes_today)
 
 
 @app.route('/schedule')
@@ -167,7 +199,10 @@ def ask_ollama():
     
     return render_template('ask_ollama.html')
 
-
+@app.route('/get_recommendations')
+def get_recommendations():
+    recommendations = ai_recommendations()
+    return jsonify(recommendations)
 
 
 

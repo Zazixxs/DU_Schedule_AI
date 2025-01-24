@@ -45,33 +45,12 @@
                 <div id="response-box">
                     <div id="response"></div>
                 </div>
+                <div class="container-ai_recomedation">
+                    <h2>AI Recommendation</h2>
+                    <div id="recommendations"></div>
+                </div>
             </div>
         </div>
-        <script>
-            async function sendPrompt() {
-            const prompt = document.getElementById('prompt').value;
-            const responseDiv = document.getElementById('response');
-            const promptField = document.getElementById('prompt');
-            responseDiv.textContent = "Loading...";
-            try {
-                const response = await fetch('/ask_ollama', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt })
-                });
-                const result = await response.json();
-                if (response.ok) {
-                    responseDiv.textContent = result.response || "No response";
-                } else {
-                    responseDiv.textContent = `Error: ${result.error || "Unknown error"}`;
-                }
-            } catch (error) {
-                responseDiv.textContent = "Error connecting to the server.";
-            } finally {
-                promptField.value = ""; // Clear the text area after sending
-            }
-}
-
-        </script>
 </body>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </html>
