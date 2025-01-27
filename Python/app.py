@@ -2,7 +2,12 @@ from flask import Flask, render_template, request, jsonify
 from bs4 import BeautifulSoup
 import requests
 import datetime
-import locale
+
+
+
+
+models =["tinyllama","deepseek-r1:7b","deepseek-r1:1.5b","llama3.2:3b","llama3", "mistral","phi3" ]
+model = models[0]
 
 
 def getSchedule():
@@ -41,7 +46,6 @@ def getSchedule():
                 }
                 events.append(event_data)
                 #print(f"Date: {event_data['datum']}, Time: {event_data['tid']}", flush=True)
-
     return events
 
 def get_classes():
@@ -82,27 +86,6 @@ def get_classes():
     #print(classes_today,flush=True)
     return classes_today
 
-def get_weather():
-    url = "https://www.smhi.se/q/Falun/2715459"
-    response = requests.get(url)
-    
-    if response.status_code != 200:
-        return "Failed to fetch weather data"
-    
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    temp_block = soup.find('div', class_='_valueCol_qjy2j_166')
-    if not temp_block:
-        return "No temperature data found"
-    
-    temps = temp_block.find_all('div')
-    if len(temps) < 2:
-        return "Incomplete temperature data"
-    
-    day_temp = temps[0].text.strip()  
-    night_temp = temps[1].text.strip()
-    
-    return day_temp, night_temp
 
 def stockmarket():
     url = "https://www.avanza.se/aktier/om-aktien.html/5247/tele2-b"
@@ -110,7 +93,6 @@ def stockmarket():
     
     if response.status_code != 200:
         return "Failed to fetch stock data"
-
 
 
 def connect_to_ollama(prompt):
@@ -122,7 +104,7 @@ def connect_to_ollama(prompt):
         "Content-Type": "application/json"
     }
     payload = {
-    "model": "llama3:8b",  # Replace with your specific model
+    "model": model,  # Replace with your specific model
     "prompt": prompt,
     "stream": False  # Include the stream parameter to disable streaming
     }
@@ -141,22 +123,22 @@ def ai_recommendations():
         scheduleToday = "No classes today"
     elif isinstance(scheduleToday, list):
         scheduleToday = "\n".join(
-            f"{event['Tid']} - {event['Programtillfälle']}, {event['Kurskod']} ({event['Lärare']}), {event['Lokal/Plats']}"
+            f"{event['Tid']} - {event["Moment"]}, {event['Lokal/Plats']}, {event['Grupp']} "
             for event in scheduleToday
         )
 
     api_url = "http://127.0.0.1:11434/api/generate"
     headers = {"Content-Type": "application/json"}
-    prompt = f"{scheduleToday}, What should I do today?(If the prompt does not contain any classes say no classes today)"
+    prompt = f"{scheduleToday},How should i plan my day? what should I do today? When can i have lunch? Max 100 characters - Only 24h format"
     payload = {
-        "model": "llama3:8b",
+        "model": model,
         "prompt": prompt,
         "stream": False
     }
 
     print("Payload:", payload, flush=True)  # Debugging
     try:
-        response = requests.post(api_url, json=payload, headers=headers, timeout=30)
+        response = requests.post(api_url, json=payload, headers=headers)
         response.raise_for_status()
         json_response = response.json()
         print("API Response:", json_response, flush=True)  # Debugging
@@ -166,9 +148,6 @@ def ai_recommendations():
         return f"Failed to connect to Ollama model: {str(e)}"
 
 
-
-
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -176,8 +155,7 @@ def home():
     events = getSchedule()  # Hämta listan med events
     stock = stockmarket()
     classes_today = get_classes()  # Hämta dagens klasser
-    return render_template('home.html', stock=stock, classes=classes_today)
-
+    return render_template('home.html', stock=stock, classes=classes_today, model=model)
 
 
 @app.route('/schedule')
@@ -203,7 +181,6 @@ def ask_ollama():
 def get_recommendations():
     recommendations = ai_recommendations()
     return jsonify(recommendations)
-
 
 
 

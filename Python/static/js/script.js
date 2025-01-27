@@ -49,3 +49,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+document.querySelector(".model-select").addEventListener("click", function () {
+    const dropdown = document.querySelector(".dropdown");
+    dropdown.classList.toggle("show");
+});
+
+// Close the dropdown if the user clicks outside of it
+window.addEventListener("click", function (e) {
+    const dropdown = document.querySelector(".dropdown");
+    if (!dropdown.contains(e.target) && !e.target.matches(".model-select")) {
+        dropdown.classList.remove("show");
+    }
+});
+

@@ -36,7 +36,7 @@
             </div>
             <div class="container-ollama">
                 <form id="ollamaForm">
-                    <h1>Ask the Ollama Model</h1>
+                    <h1>Using {{ model }} Model</h1>
                     <textarea id="prompt" name="prompt" placeholder="Ask something..." rows="4" cols="50"></textarea>
                     <br>
                     <button type="button" onclick="sendPrompt()">Send</button>
@@ -48,6 +48,15 @@
                 <div class="container-ai_recomedation">
                     <h2>AI Recommendation</h2>
                     <div id="recommendations"></div>
+                    <div id="recommendations-help"></div>
+                    <div class="dropdown">
+                        <button class="model-select">Models</button>
+                        <div class="dropdown-content">
+                            <a href="#" onclick="selectModel('gpt-2')">GPT-2</a>
+                            <a href="#" onclick="selectModel('gpt-3')">GPT-3</a>
+                            <a href="#" onclick="selectModel('t5')">T5</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
