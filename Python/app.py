@@ -7,7 +7,7 @@ import datetime
 
 
 models =["tinyllama","deepseek-r1:7b","deepseek-r1:1.5b","llama3.2:3b","llama3", "mistral","phi3" ]
-model = models[0]
+model = models[3]
 
 
 def getSchedule():
