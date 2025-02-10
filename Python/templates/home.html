@@ -14,52 +14,61 @@
         <button id="newsButton"><a href="https://www.theguardian.com/europe" target="_blank">News</a></button>
         <button id="youtubeButton"><a href="https://www.youtube.com/" target="_blank">Youtube</a></button>
     </div>
-        <div class="container-content">
-            <div class="container-classes">
-                <h2>Classes for Today</h2>
-                {% if classes %}
-                    <ul>
-                        {% for cls in classes %}
-                            <li>
-                                <strong>Time:</strong> {{ cls['Tid'] }}<br>
-                                <strong>Course Occasion:</strong> {{ cls['Kurstillfälle'] }}<br>
-                                <strong>Group:</strong> {{ cls['Grupp'] }}<br>
-                                <strong>Moment:</strong> {{ cls['Moment'] }}<br>
-                                <strong>Teacher:</strong> {{ cls['Lärare'] }}<br>
-                                <strong>Location:</strong> {{ cls['Lokal/Plats'] }}<br>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No classes scheduled for today.</p>
-                {% endif %}
+    <div class="container-content">
+        <div class="container-classes">
+            <h2>Classes for Today</h2>
+            {% if classes %}
+                <ul>
+                    {% for cls in classes %}
+                        <li>
+                            <strong>Time:</strong> {{ cls['Tid'] }}<br>
+                            <strong>Course Occasion:</strong> {{ cls['Kurstillfälle'] }}<br>
+                            <strong>Group:</strong> {{ cls['Grupp'] }}<br>
+                            <strong>Moment:</strong> {{ cls['Moment'] }}<br>
+                            <strong>Teacher:</strong> {{ cls['Lärare'] }}<br>
+                            <strong>Location:</strong> {{ cls['Lokal/Plats'] }}<br>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No classes scheduled for today.</p>
+            {% endif %}
+        </div>
+        <div class="container-ollama">
+            <form id="ollamaForm">
+                <h1>Using {{ model }} Model</h1>
+                <textarea id="prompt" name="prompt" placeholder="Ask something..." rows="4" cols="50"></textarea>
+                <br>
+                <button type="button" onclick="sendPrompt()">Send</button>
+            </form>
+            <p>Answer</p>
+            <div id="response-box">
+                <div id="response"></div>
             </div>
-            <div class="container-ollama">
-                <form id="ollamaForm">
-                    <h1>Using {{ model }} Model</h1>
-                    <textarea id="prompt" name="prompt" placeholder="Ask something..." rows="4" cols="50"></textarea>
-                    <br>
-                    <button type="button" onclick="sendPrompt()">Send</button>
-                </form>
-                <p>Answer</p>
-                <div id="response-box">
-                    <div id="response"></div>
-                </div>
-                <div class="container-ai_recomedation">
-                    <h2>AI Recommendation</h2>
-                    <div id="recommendations"></div>
-                    <div id="recommendations-help"></div>
-                    <div class="dropdown">
-                        <button class="model-select">Models</button>
-                        <div class="dropdown-content">
-                            <a href="#" onclick="selectModel('gpt-2')">GPT-2</a>
-                            <a href="#" onclick="selectModel('gpt-3')">GPT-3</a>
-                            <a href="#" onclick="selectModel('t5')">T5</a>
-                        </div>
+            <div class="container-ai_recomedation">
+                <h2>AI Recommendation</h2>
+                <div id="recommendations"></div>
+                <div id="recommendations-help"></div>
+                <div class="dropdown">
+                    <button class="model-select">Models</button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="selectModel('gpt-2')">GPT-2</a>
+                        <a href="#" onclick="selectModel('gpt-3')">GPT-3</a>
+                        <a href="#" onclick="selectModel('t5')">T5</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container-booking">
+        <iframe 
+            id="myIframe"
+            src="https://tvatt.kopparstaden.se/PassadBookingClient?module=wwwash&customerName=110-005-1-050&timestamp=2025-02-10%2012:41:31&hash=48rw9c8w41U-M7U2T-X8BsiX-Y4*&lang=sv-SE" 
+            width="80%" 
+            height="800px" 
+            style="display: block; margin: 0 auto; filter: invert(100%) brightness(85%);">
+        </iframe>
+    </div>
 </body>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </html>
