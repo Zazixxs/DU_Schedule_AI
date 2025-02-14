@@ -1,215 +1,174 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 :root {
-    --primary-color: #ffffff; /* Vit färg för text */
-    --gray-light: #444444; /* Ljus grå för bakgrund eller linjer */
-    --gray-medium: #2a2a2a; /* Medium grå för sektioner */
-    --gray-dark: #1e1e1e; /* Mörk grå för huvudsakliga bakgrunder */
+  --primary-color: #ffffff;
+  --gray-light: #444444;
+  --gray-medium: #2a2a2a;
+  --gray-dark: #1e1e1e;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: var(--gray-dark); /* Använd mörk grå som standardbakgrund */
-    margin: 0;
-    padding: 20px;
-    color: var(--primary-color); /* Vit text för generellt innehåll */
+  font-family: Arial, sans-serif;
+  background-color: var(--gray-dark);
+  color: var(--primary-color);
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-    text-align: center;
-    color: var(--primary-color); /* Vit text för rubriker */
+  text-align: center;
+  color: var(--primary-color);
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    background-color: var(--gray-medium); /* Medium grå för tabellens bakgrund */
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background-color: var(--gray-medium);
 }
 
-table th, table td {
-    border: 1px solid var(--gray-light); /* Ljus grå kant */
-    padding: 8px;
-    text-align: left;
-    color: var(--primary-color); /* Vit text för celler */
+table th,
+table td {
+  border: 1px solid var(--gray-light);
+  padding: 8px;
+  text-align: left;
+  color: var(--primary-color);
 }
 
 table th {
-    background-color: var(--gray-light); /* Ljus grå för tabellhuvuden */
-    color: var(--primary-color); /* Vit text för rubriker */
-}
-
-.continer-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    gap: 1rem;
+  background-color: var(--gray-light);
 }
 
 button {
-    background-color: var(--gray-light); /* Ljus grå för knappar */
-    color: var(--primary-color); /* Vit text */
-    border: none;
-    padding: 0.5rem;
-    width: 100%;
+  background-color: var(--gray-light);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.5rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 button a {
-    color: var(--primary-color); /* Vit text för länkar */
-    text-decoration: none;
+  display: block;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.continer-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.container-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
 }
 
 .container-classes {
-    background-color: var(--gray-dark); /* Mörk grå för kontrast */
-    border-radius: 8px; /* Rundade hörn */
-    padding: 20px; /* Utrymme runt innehållet */
-    margin: 20px auto; /* Centrera behållaren */
-    max-width: 800px; /* Begränsa bredden */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtil skugga */
+  background-color: var(--gray-dark);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .container-classes h2 {
-    color: var(--primary-color); /* Vit text för rubriker */
-    margin-bottom: 15px; /* Lite mellanrum under rubriken */
-    text-align: center; /* Centrera rubriken */
-    border-bottom: 2px solid var(--gray-light); /* Understrykning */
-    padding-bottom: 10px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  text-align: center;
+  border-bottom: 2px solid var(--gray-light);
+  padding-bottom: 10px;
 }
 
 .container-classes ul {
-    list-style: none; /* Ta bort punktlista */
-    padding: 0; /* Ingen inre marginal */
-    margin: 0; /* Ingen yttre marginal */
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .container-classes li {
-    background-color: var(--gray-medium); /* Medium grå för lista */
-    border: 1px solid var(--gray-light); /* Ljus grå kant */
-    padding: 15px; /* Utrymme inuti */
-    margin-bottom: 10px; /* Mellanrum mellan listor */
-    border-radius: 5px; /* Rundade hörn */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Skugga för djup */
+  background-color: var(--gray-medium);
+  border: 1px solid var(--gray-light);
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .container-classes li strong {
-    color: var(--primary-color); /* Vit text för titlar */
-    display: block; /* Varje titel på egen rad */
-    margin-bottom: 5px; /* Mellanrum under titeln */
+  color: var(--primary-color);
+  display: block;
+  margin-bottom: 5px;
 }
 
 .container-classes p {
-    color: var(--primary-color); /* Vit text för detaljer */
-    margin: 0;
-    font-size: 0.9rem; /* Något mindre textstorlek för detaljer */
+  color: var(--primary-color);
+  margin: 0;
+  font-size: 0.9rem;
 }
 
-
-.container-content {
-    display: flex; /* Arrange items in a row */
-    gap: 20px; /* Add space between columns */
-    margin: 20px auto; /* Center the content */
-    max-width: 1200px; /* Limit the overall width */
-}
-
-.container-classes, .container-ollama {
-    flex: 1; /* Each column takes equal width */
-    background-color: var(--gray-dark); /* Consistent background color */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+.container-ollama {
+  background-color: var(--gray-dark);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
 }
 
 .container-ollama h1 {
-    text-align: center;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-    border-bottom: 2px solid var(--gray-light);
-    padding-bottom: 10px;
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--gray-light);
+  padding-bottom: 10px;
 }
 
 .container-ollama p {
-    color: var(--primary-color);
-    font-size: 20px;
-    padding-top: 1.5rem;
+  color: var(--primary-color);
+  font-size: 20px;
+  padding-top: 1.5rem;
 }
 
 textarea {
-    border: 1px solid var(--gray-light); /* Border for better visibility */
-    border-radius: 5px;
-    background-color: var(--gray-medium);
-    color: var(--primary-color);
-    padding: 10px;
-    resize: none;
-}
-
-button {
-    margin-top: 10px;
-    padding: 10px;
-    width: 100%;
-    cursor: pointer;
+  border: 1px solid var(--gray-light);
+  border-radius: 5px;
+  background-color: var(--gray-medium);
+  color: var(--primary-color);
+  resize: none;
+  padding: 10px;
 }
 
 #response-box {
-    margin-top: 20px;
-    padding: 30px;
-    background-color: var(--gray-medium); /* Match design theme */
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-}
-
-#response-box h3 {
-    margin-bottom: 10px;
-    color: var(--primary-color);
+  margin-top: 20px;
+  background-color: var(--gray-medium);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 15px;
 }
 
 #response {
-    color: var(--primary-color); /* White text for visibility */
+  color: var(--primary-color);
 }
 
-
-
-
-.dropdown {
-    position: relative; /* Ensure the dropdown content is positioned relative to the button */
-    display: inline-block;
+#myIframe {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 800px;
+  margin: 0;
+  display: block;
 }
 
-.dropdown-content {
-    display: none; /* Hidden by default */
-    position: absolute; /* Position it below the button */
-    background-color: var(--gray-medium); /* Match your theme */
-    min-width: 160px; /* Minimum width for dropdown */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add some shadow for depth */
-    border-radius: 5px; /* Rounded corners */
-    z-index: 1; /* Ensure it appears above other elements */
+.container-booking {
+  width: 100%;
+  margin: 20px 0;
 }
-
-.dropdown-content a {
-    color: var(--primary-color); /* White text */
-    padding: 12px 16px; /* Add some padding */
-    text-decoration: none; /* Remove underline */
-    display: block; /* Make links take full width */
-}
-
-.dropdown-content a:hover {
-    background-color: var(--gray-light); /* Highlight links on hover */
-}
-
-.dropdown.show .dropdown-content {
-    display: block; /* Show dropdown when .show is added */
-}
-
-/* Button styles for consistency */
-.model-select {
-    background-color: var(--gray-light); /* Match button background */
-    color: var(--primary-color); /* White text */
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    text-align: center;
-    width: 100%; /* Full width button */
-}
-
-.model-select:hover {
-    background-color: var(--gray-medium); /* Slightly darker on hover */
-}
-
-

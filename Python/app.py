@@ -4,8 +4,6 @@ import requests
 import datetime
 
 
-
-
 models =["tinyllama","deepseek-r1:7b","deepseek-r1:1.5b","llama3.2:3b","llama3:8b", "mistral","phi3" ]
 model = models[4]
 
@@ -129,7 +127,7 @@ def ai_recommendations():
 
     api_url = "http://127.0.0.1:11434/api/generate"
     headers = {"Content-Type": "application/json"}
-    prompt = f"{scheduleToday},How should i plan my day? what should I do today? When can i have lunch? Max 100 characters - Only 24h format"
+    prompt = f"{scheduleToday},Do a plan for my day with lunch also. Max 50 characters - Only 24h format"
     payload = {
         "model": model,
         "prompt": prompt,
