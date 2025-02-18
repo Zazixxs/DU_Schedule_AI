@@ -1,40 +1,47 @@
-# Installation needed
-### Install Ollama at their website
-https://ollama.com/
+Here is a more organized version of the installation instructions:
+
+# Installation Guide
+
+## Prerequisites
+
+### Install Ollama
+Visit [Ollama's website](https://ollama.com/) to download and install.
 
 ### Install Docker Desktop
-https://www.docker.com/products/docker-desktop/
+Visit [Docker Desktop](https://www.docker.com/products/docker-desktop/) to download and install.
 
-### Python
+### Install Python Dependencies
+```sh
 pip install flask
-
 pip install BeautifulSoup
+```
 
 ## Docker Setup
 
+### Pull Ollama Docker Image
+```sh
 docker pull ollama/ollama
+```
 
+## Choose Models in Ollama
 
-## Choose models in ollama
+Pull selected models from [Ollama Search](https://ollama.com/search).
 
-Pull selected models from 
-
-https://ollama.com/search
-
-
-# Setup Manually 
+## Manual Setup
 
 ### Start Ollama in Command Prompt
-Ollama serve 
-### Run the app.py
-localpath/Flask/app.py
+```sh
+ollama serve
+```
 
+### Run the Flask Application
+Navigate to your Flask application directory and run:
+```sh
+python localpath/Flask/app.py
+```
 
-### Default ports are used
-Flask will run by default on localhost port 3000
+### Default Ports
+- **Flask**: Runs on `localhost:3000`
+- **Ollama**: Runs on `localhost:11434`
 
-Ollama will run by default on localhost on port 11434
-
-
-
-
+You can update the README.md with these changes.
