@@ -7,13 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <div class="continer-nav">  
-        <button id="schduleButton"><a href="{{ url_for('schedule') }}">Schedule</a></button>
-        <button id="stockButton"><a href="https://www.avanza.se/borsen-idag.html" target="_blank">Stockmarket</a></button>
-        <button id="newsButton"><a href="https://www.theguardian.com/europe" target="_blank">News</a></button>
-        <button id="youtubeButton"><a href="https://www.youtube.com/" target="_blank">Youtube</a></button>
-    </div>
     <h2>Välj en AI-modell:</h2>
     <div class="select-model">
         {% for cls in models %}
