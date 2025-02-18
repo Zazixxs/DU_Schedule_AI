@@ -153,7 +153,7 @@ def home():
     events = getSchedule()  # Hämta listan med events
     stock = stockmarket()
     classes_today = get_classes()  # Hämta dagens klasser
-    return render_template('home.html', stock=stock, classes=classes_today, model=model)
+    return render_template('home.html', stock=stock, classes=classes_today, model=model, models=models)
 
 
 @app.route('/schedule')
@@ -179,6 +179,15 @@ def ask_ollama():
 def get_recommendations():
     recommendations = ai_recommendations()
     return jsonify(recommendations)
+
+@app.route("/update-model", methods=["POST"])
+def update_model():
+    global model
+    data = request.json
+    if data["model"] in models:
+        model = data["model"]
+    return {"status": "success", "model": model}
+
 
 
 

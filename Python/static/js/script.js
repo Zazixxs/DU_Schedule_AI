@@ -1,3 +1,4 @@
+//Send Prompt
 async function sendPrompt() {
     const prompt = document.getElementById('prompt').value;
     const responseDiv = document.getElementById('response');
@@ -22,6 +23,8 @@ async function sendPrompt() {
     }
 }
 
+
+// Fetch recommendations
 async function fetchRecommendations() {
     const recommendationsContainer = document.getElementById('recommendations');
     recommendationsContainer.textContent = "Loading AI recommendations...";
@@ -44,21 +47,28 @@ async function fetchRecommendations() {
     }
 }
 
+// Update model
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('input[name="model"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            let selectedModel = this.value;
+            console.log("Vald modell:", selectedModel);
+            document.getElementById('select-model').textContent = `Using ${selectedModel}`;
+            fetch('/update-model', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ model: selectedModel })
+            })
+            .then(response => response.json())
+            .then(data => console.log("Server response:", data))
+            .catch(error => console.error("Error:", error));
+        });
+    });
+});
+
+
+
+// Defualt Loadings
 document.addEventListener("DOMContentLoaded", () => {
     fetchRecommendations();
 });
-
-
-document.querySelector(".model-select").addEventListener("click", function () {
-    const dropdown = document.querySelector(".dropdown");
-    dropdown.classList.toggle("show");
-});
-
-// Close the dropdown if the user clicks outside of it
-window.addEventListener("click", function (e) {
-    const dropdown = document.querySelector(".dropdown");
-    if (!dropdown.contains(e.target) && !e.target.matches(".model-select")) {
-        dropdown.classList.remove("show");
-    }
-});
-

@@ -14,6 +14,15 @@
         <button id="newsButton"><a href="https://www.theguardian.com/europe" target="_blank">News</a></button>
         <button id="youtubeButton"><a href="https://www.youtube.com/" target="_blank">Youtube</a></button>
     </div>
+    <h2>Välj en AI-modell:</h2>
+    <div class="select-model">
+        {% for cls in models %}
+            <label onclick="fetchRecommendations()">
+                <input type="radio" id="{{ cls }}" name="model" value="{{ cls }}" {% if cls == model %}checked{% endif %}>
+                {{ cls }}
+            </label><br>
+        {% endfor %}
+    </div>
     <div class="container-content">
         <div class="container-classes">
             <h2>Classes for Today</h2>
@@ -41,15 +50,13 @@
         </div>
         <div class="container-ollama">
             <form id="ollamaForm">
-                <h1>Using {{ model }} Model</h1>
+                <h1 id="select-model">Using {{ model }}</h1>
                 <textarea id="prompt" name="prompt" placeholder="Ask something..." rows="4" cols="50"></textarea>
                 <br>
                 <button type="button" onclick="sendPrompt()">Send</button>
             </form>
-                <p>Answer</p>
-            <div id="response-box">
+                <h2>Answer</h2>
                 <div id="response"></div>
-            </div>
             </div>
         <div class="container-booking">
             <iframe 
