@@ -1,0 +1,19 @@
+
+FROM python:3.10
+
+WORKDIR /app
+
+COPY . /app
+
+RUN pip install --no-cache-dir Flask beautifulsoup4 requests
+
+RUN curl -fsSL https://ollama.ai/install.sh | sh
+
+EXPOSE 3000 11434
+
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+CMD ollama serve & python app.py
+
+
