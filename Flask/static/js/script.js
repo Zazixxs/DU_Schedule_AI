@@ -37,7 +37,11 @@ async function fetchRecommendations() {
         if (response.ok) {
             const data = await response.json();
             // Display the response (assumes it's a single string)
-            recommendationsContainer.innerHTML = `<p>${data}</p>`;
+            if (data == null || data === "") {
+                recommendationsContainer.textContent = "No recommendations available.";
+            } else {
+                recommendationsContainer.innerHTML = `<p>${data}</p>`;
+            }
         } else {
             recommendationsContainer.textContent = `Error: ${response.statusText || "Unable to fetch recommendations"}`;
         }

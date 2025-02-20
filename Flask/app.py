@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from bs4 import BeautifulSoup
 import requests
-import datetime
 
 
 models =["tinyllama","deepseek-r1:7b","deepseek-r1:1.5b","llama3.2:3b","llama3:8b", "mistral","phi3" ]
@@ -119,31 +118,31 @@ def ai_recommendations():
     scheduleToday = get_classes()
     if not scheduleToday:
         scheduleToday = "No classes today"
-    elif isinstance(scheduleToday, list):
+    else:
         scheduleToday = "\n".join(
             f"{event['Tid']} - {event["Moment"]}, {event['Lokal/Plats']}, {event['Grupp']} "
             for event in scheduleToday
         )
 
-    api_url = "http://127.0.0.1:11434/api/generate"
-    headers = {"Content-Type": "application/json"}
-    prompt = f"{scheduleToday},Do a plan for my day with lunch also. Max 50 characters - Only 24h format"
-    payload = {
-        "model": model,
-        "prompt": prompt,
-        "stream": False
-    }
+        api_url = "http://127.0.0.1:11434/api/generate"
+        headers = {"Content-Type": "application/json"}
+        prompt = f"this is my schedual :{scheduleToday} how should i do"
+        payload = {
+            "model": model,
+            "prompt": prompt,
+            "stream": False
+        }
 
-    print("Payload:", payload, flush=True)  # Debugging
-    try:
-        response = requests.post(api_url, json=payload, headers=headers)
-        response.raise_for_status()
-        json_response = response.json()
-        print("API Response:", json_response, flush=True)  # Debugging
-        return json_response.get("response", "No response field in API response")
-    except requests.RequestException as e:
-        print(f"API Error: {e}", flush=True)  # Debugging
-        return f"Failed to connect to Ollama model: {str(e)}"
+        print("Payload:", payload, flush=True)  # Debugging
+        try:
+            response = requests.post(api_url, json=payload, headers=headers)
+            response.raise_for_status()
+            json_response = response.json()
+            print("API Response:", json_response, flush=True)  # Debugging
+            return json_response.get("response", "No response field in API response")
+        except requests.RequestException as e:
+            print(f"API Error: {e}", flush=True)  # Debugging
+            return f"Failed to connect to Ollama model: {str(e)}"
 
 
 app = Flask(__name__)
